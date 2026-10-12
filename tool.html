@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>互动TIR小工具 - 读懂你的血糖</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body>
+    <nav class="main-nav">
+        <a href="index.html">首页</a>
+        <a href="science.html">知识科普</a>
+        <a href="tool.html">互动TIR小工具</a>
+        <a href="indicator.html">指标解读</a>
+        <a href="advice.html">健康建议</a>
+    </nav>
+
+    <main class="container">
+        <h1>互动TIR小工具</h1>
+        <p>输入你一天的血糖数据（24小时，每小时1个点），系统将自动计算TIR、GMI、CV三大指标。</p>
+
+        <section class="input-section">
+            <h2>📝 输入你的血糖数据</h2>
+            <p class="hint">单位：mmol/L。正常范围3.9-10.0，低于3.9为低血糖，高于10.0为高血糖。</p>
+            
+            <div class="data-input-grid" id="dataInputGrid">
+                <!-- 24个输入框，每小时一个 -->
+            </div>
+
+            <div class="button-group">
+                <button onclick="loadSampleData()" class="btn-secondary">载入示例数据</button>
+                <button onclick="clearData()" class="btn-secondary">清空</button>
+                <button onclick="calculateMetrics()" class="btn-primary">计算指标</button>
+            </div>
+        </section>
+
+        <section class="result-section" id="resultSection" style="display:none;">
+            <h2>📊 计算结果</h2>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>TIR（目标范围内时间）</h3>
+                    <p class="metric-value" id="tirValue">--</p>
+                    <p class="metric-target">目标：>70%</p>
+                    <p class="metric-status" id="tirStatus">--</p>
+                </div>
+                <div class="metric-card">
+                    <h3>GMI（估算糖化）</h3>
+                    <p class="metric-value" id="gmiValue">--</p>
+                    <p class="metric-target">目标：<7%</p>
+                    <p class="metric-status" id="gmiStatus">--</p>
+                </div>
+                <div class="metric-card">
+                    <h3>CV（变异系数）</h3>
+                    <p class="metric-value" id="cvValue">--</p>
+                    <p class="metric-target">目标：<36%</p>
+                    <p class="metric-status" id="cvStatus">--</p>
+                </div>
+            </div>
+
+            <div id="agpChart" style="width: 100%; height: 400px; margin-top: 30px;"></div>
+
+            <div class="interpretation">
+                <h3>结果解读</h3>
+                <div id="interpretationText"></div>
+            </div>
+
+            <div class="warning-box">
+                ⚠️ 本结果仅供科普教育，不作为诊断或治疗建议。如有健康问题请咨询专业医师。
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>参考标准：国际TIR共识2019 / ADA Standards of Medical Care 2024</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/tool.js"></script>
+</body>
+</html>
